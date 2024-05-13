@@ -1,0 +1,15 @@
+fastapi
+redis
+types-redis
+uvicorn
+pytest
+twisted
+pytest-asyncio
+pytest-trio
+pytest-anyio
+pytest-twisted
+httpx
+requests
+beautifulsoup4
+urllib.request
+tdd
