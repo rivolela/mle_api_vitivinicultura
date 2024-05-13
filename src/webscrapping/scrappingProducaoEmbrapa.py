@@ -5,6 +5,7 @@ from typing import Optional
 from config import Config, TestConfig
 import os
 
+
 def scrappingProducaoEmbrapa(config, ano):
     html_content = fetch_page(config.URL_PRODUCTS)
     if html_content:

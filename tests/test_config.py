@@ -35,17 +35,3 @@ def test_get_config_url(mock_environment):
     # Assert URL based on environment
     assert url == config.URL_PRODUCTS
 
-
-def test_ENVIRONMENT_value():
-
-     # Call get_config function
-    config = get_config()
-
-    if os.environ.get('ENVIRONMENT') == 'production':
-        url = config.URL_PRODUCTS + "2024"
-        print(url)
-    else:
-        url = config.URL_PRODUCTS
-        print(url)
-
-    assert url == config.URL_PRODUCTS

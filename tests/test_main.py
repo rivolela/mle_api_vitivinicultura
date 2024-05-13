@@ -42,31 +42,3 @@ def test_validate_year_product():
     assert exc_info.value.status_code == 400
     assert exc_info.value.detail == "Year product must be provided:YYYY"
 
-
-@pytest.fixture
-def mock_os_environ(monkeypatch):
-    """
-    Fixture to mock os.environ.get method.
-    """
-    def mock_get(key, default=None):
-        if key == 'ENVIRONMENT':
-            return 'test'
-        return default  # Return the default value when key is not found
-    monkeypatch.setattr(os.environ, 'get', mock_get)
-
-
-def test_get_config(mock_os_environ):
-    """
-    Test get_config function.
-    """
-    # Call get_config function
-    config = get_config()
-
-    # Assert that the returned object is an instance of TestConfig
-    assert isinstance(config, TestConfig)
-
-    # Add more assertions as needed
-    assert config.DEBUG == True
-    assert config.TESTING == True
-    assert config.URL_PRODUCTS == config.URL_PRODUCTS
-

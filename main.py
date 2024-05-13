@@ -2,8 +2,8 @@ from fastapi import FastAPI, HTTPException, Depends
 from pydantic import BaseModel
 import httpx
 from typing import Optional
-from webscrapping.scrappingProducaoEmbrapa import scrappingProducaoEmbrapa
-from webscrapping.scrappingProducaoEmbrapa import validate_year_product
+from src.webscrapping.scrappingProducaoEmbrapa import scrappingProducaoEmbrapa
+from src.webscrapping.scrappingProducaoEmbrapa import validate_year_product
 from config import Config, TestConfig
 import os
 
