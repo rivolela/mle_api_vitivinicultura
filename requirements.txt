@@ -11,5 +11,4 @@ pytest-twisted
 httpx
 requests
 beautifulsoup4
-urllib.request
 tdd
