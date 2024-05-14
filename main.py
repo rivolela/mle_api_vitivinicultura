@@ -11,12 +11,6 @@ app = FastAPI()
 
 produtos=[]
 
-# Dependency to provide the appropriate configuration based on the environment
-def get_config():
-    if os.environ.get('ENVIRONMENT') == 'production':
-        return Config()
-    else:
-        return TestConfig()
 
 
 @app.get("/")
@@ -25,9 +19,9 @@ async def hello_api():
 
 
 @app.get("/products/{year_product}")
-async def get_list_products(config: Config = Depends(get_config),year_product: str = Depends(validate_year_product)):
+async def get_list_products(year_product: str = Depends(validate_year_product)):
     try:
-        produtos = scrappingProducaoEmbrapa(config,year_product)
+        produtos = scrappingProducaoEmbrapa(year_product)
         print(produtos)
         return {'produtos':produtos}
     except HTTPException as e:

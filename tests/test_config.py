@@ -2,8 +2,7 @@ import os
 import pytest
 
 # Assuming you have a config module with URL_PRODUCTS defined
-from config import Config,TestConfig
-from main import get_config
+from config import Config,TestConfig,get_config
 
 @pytest.fixture
 def mock_environment(monkeypatch):
@@ -24,7 +23,7 @@ def test_get_config_url(mock_environment):
     ano = "2024"
 
     # Call get_config function
-    config = get_config()
+    config = get_config
     
 
     if os.environ.get('ENVIRONMENT') == 'production':

@@ -6,16 +6,39 @@ from fastapi import HTTPException
 from typing import Optional
 from main import validate_year_product  # Import your function from the appropriate module
 import os
-from main import get_config, Config, TestConfig  # Import your function and configuration classes
-
+from config import get_config, Config, TestConfig  # Import your function and configuration classes
+from src.webscrapping.scrappingProducaoEmbrapa import get_url
+import json
 
 @pytest.mark.asyncio
-async def test_url_not_found():
+async def test_get_products_without_year():
     async with AsyncClient(app=app, base_url="http://127.0.0.1:8000") as ac:
         response = await ac.get("/products")
         assert response.status_code == 404
         assert response.json() == {"detail": "Not Found"}
-        #assert response.json() == {"products": []}
+
+
+@pytest.mark.asyncio
+async def test_get_products_with_year():
+    async with AsyncClient(app=app,base_url="http://127.0.0.1:8000") as ac:
+        response = await ac.get("/products/2023")
+
+        assert response.status_code == 200
+
+        # Parse the JSON data
+        data = response.json()
+
+        # Extract the list of products
+        produtos = data.get('produtos')
+        
+        # Assertions
+        assert isinstance(produtos, list)  # Check if produtos is a list
+        assert len(produtos) > 0  # Check if produtos array is not empty
+
+        # Check the attributes of the first object in the list
+        first_product = produtos[0]
+        assert first_product['item'] == 'VINHO DE MESA'  # Check if item of the first element is 'VINHO DE MESA'
+        assert first_product['quantidade'] == '169.762.429'  # Check if quantidade of the first element is '169.762.429'
 
 
 def test_validate_year_product():

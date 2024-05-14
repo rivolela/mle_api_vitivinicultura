@@ -6,11 +6,12 @@ from config import Config, TestConfig
 import os
 
 
-def scrappingProducaoEmbrapa(config, ano):
-    html_content = fetch_page(config.URL_PRODUCTS)
+def scrappingProducaoEmbrapa(year):
+    url = get_url(year)
+    html_content = fetch_page(url)
     if html_content:
         soup = parse_html(html_content)
-        produtos = extract_product_item(soup)
+        produtos = extract_product_item(soup) 
         return produtos
     else:
         print("Failed to fetch web page.")
@@ -62,6 +63,15 @@ def validate_year_product(year_product: Optional[str] = None):
     if year_product is None or year_product.strip() == "" or is_string(year_product):
         raise HTTPException(status_code=400, detail="Year product must be provided:YYYY")
     return year_product
+
+
+
+def get_url(year_product):
+    if os.environ.get('ENVIRONMENT') == 'production':
+        url = Config.URL_PRODUCTS + year_product
+    else:
+        url = TestConfig.URL_PRODUCTS   
+    return url
 
 
 # if __name__ == "__main__":
