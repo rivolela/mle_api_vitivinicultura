@@ -23,7 +23,7 @@ def test_get_config_url(mock_environment):
     ano = "2024"
 
     # Call get_config function
-    config = get_config
+    config = get_config()
     
 
     if os.environ.get('ENVIRONMENT') == 'production':

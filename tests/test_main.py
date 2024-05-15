@@ -37,9 +37,14 @@ async def test_get_products_with_year():
 
         # Check the attributes of the first object in the list
         first_product = produtos[0]
-        assert first_product['item'] == 'VINHO DE MESA'  # Check if item of the first element is 'VINHO DE MESA'
+        assert first_product['product'] == 'VINHO DE MESA'  # Check if item of the first element is 'VINHO DE MESA'
         assert first_product['quantidade'] == '169.762.429'  # Check if quantidade of the first element is '169.762.429'
         assert first_product['ano'] == '2023'  # Check if yeear of the first element is 2023
+        assert first_product['type'] == 'item'  # Check if product type is item or subitem
+        assert produtos[1]['quantidade'] == '139.320.884'  # Check if subitem quantity is '169.762.429'
+        assert produtos[1]['ano'] == '2023'  # Check if subitem year is 2023
+        assert produtos[1]['type'] == 'subitem'  # Check if type is subitem
+        assert produtos[1]['item'] == 'VINHO DE MESA'  # Check if item of subitem is 'VINHO DE MESA'
 
 
 def test_validate_year_product():

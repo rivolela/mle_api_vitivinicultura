@@ -35,8 +35,21 @@ def extract_product_item(soup):
                 extracted_text.append(product) 
             else:
                 product = {}
-                product["item"] = value
+                product["product"] = value
                 product["ano"] = ano
+
+                # Find the <td> element with class "tb_item"
+                class_name = child.get('class')
+                # Remove the 'tb_' prefix
+
+                if class_name:
+                    class_name = class_name[0].replace('tb_', '')
+                    product["type"] = class_name
+                    if class_name == 'item':                   
+                        productItem = value
+                    else:
+                        product["item"] = productItem
+
         return extracted_text
     else:
         print("Failed to extract_product_item.")
