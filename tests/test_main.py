@@ -39,6 +39,7 @@ async def test_get_products_with_year():
         first_product = produtos[0]
         assert first_product['item'] == 'VINHO DE MESA'  # Check if item of the first element is 'VINHO DE MESA'
         assert first_product['quantidade'] == '169.762.429'  # Check if quantidade of the first element is '169.762.429'
+        assert first_product['ano'] == '2023'  # Check if yeear of the first element is 2023
 
 
 def test_validate_year_product():

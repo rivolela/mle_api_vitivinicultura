@@ -1,3 +1,4 @@
+from bs4 import BeautifulSoup
 from src.webscrapping.fetchWebPage import fetch_page
 from src.webscrapping.parseHTMLContent import parse_html
 from fastapi import FastAPI, HTTPException, Depends
@@ -20,6 +21,9 @@ def scrappingProducaoEmbrapa(year):
 
 def extract_product_item(soup):
     tableProducts = soup.find('table', {'class': 'tb_base tb_dados'}) 
+    
+    ano = get_year_item(soup)
+
     # Initialize an empty list to store the extracted text
     extracted_text = []
 
@@ -32,9 +36,33 @@ def extract_product_item(soup):
             else:
                 product = {}
                 product["item"] = value
+                product["ano"] = ano
         return extracted_text
     else:
         print("Failed to extract_product_item.")
+
+
+def get_year_item(html_content):
+
+    #soup = BeautifulSoup(html_content, 'html.parser')
+
+    # Find the <div> element with class 'content_center'
+    div_tag = html_content.find('div', class_='content_center')
+                        
+    # Extract the text content of the <p> tag inside the <div>
+    if div_tag:
+        p_tag = div_tag.find('p', class_='text_center') # type: ignore
+        if p_tag:
+            # Extract the year from the text
+            text = p_tag.get_text()
+            year = text.strip().split('[', 1)[1].split(']', 1)[0]
+            return year
+        else:
+            print("No <p> tag with class 'text_center' found inside <div>")
+            return None
+    else:
+        print("No <div> tag with class 'content_center' found")
+        return None
 
 
 def trata_item(input):
