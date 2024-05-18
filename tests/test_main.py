@@ -1,14 +1,10 @@
 import pytest
-import httpx
 from httpx import AsyncClient
 from main import app
 from fastapi import HTTPException
-from typing import Optional
-from main import validate_year_product  # Import your function from the appropriate module
-import os
-from config import get_config, Config, TestConfig  # Import your function and configuration classes
-from src.webscrapping.scrappingProducaoEmbrapa import get_url
-import json
+
+from webscrapping.scrappingEmbrapaCommons import validate_year
+
 
 @pytest.mark.asyncio
 async def test_get_products_without_year():
@@ -29,7 +25,7 @@ async def test_get_products_with_year():
         data = response.json()
 
         # Extract the list of products
-        produtos = data.get('produtos')
+        produtos = data.get('products')
         
         # Assertions
         assert isinstance(produtos, list)  # Check if produtos is a list
@@ -47,27 +43,58 @@ async def test_get_products_with_year():
         assert produtos[1]['item'] == 'VINHO DE MESA'  # Check if item of subitem is 'VINHO DE MESA'
 
 
+@pytest.mark.asyncio
+async def test_get_processing_with_year():
+    async with AsyncClient(app=app,base_url="http://127.0.0.1:8000") as ac:
+        response = await ac.get("/processings/2022/subopt_01")
+
+        assert response.status_code == 200
+
+        # Parse the JSON data
+        data = response.json()
+
+        # Extract the list of products
+        processings = data.get('processings')  
+        
+        # Assertions
+        assert isinstance(processings, list)  # Check if produtos is a list
+        assert len(processings) > 0  # Check if produtos array is not empty
+
+        # Check the attributes of the first object in the list
+        assert processings[0]['cultivar'] == 'TINTAS'  
+        assert processings[0]['quantidade'] == '*: Os dados disponibilizados pelo SISDEVIN no ano de 2022 estão agregados [Uvas viníferas: 99.738.086; Uvas americanas ou híbridas: 565.243.922]'
+        assert processings[0]['ano'] == '2022'  
+        assert processings[0]['type'] == 'item' 
+        assert processings[1]['cultivar'] == 'Bacarina' 
+        assert processings[1]['quantidade'] == '*: Os dados disponibilizados pelo SISDEVIN no ano de 2022 estão agregados [Uvas viníferas: 99.738.086; Uvas americanas ou híbridas: 565.243.922]'
+        assert processings[1]['ano'] == '2022' 
+        assert processings[1]['type'] == 'subitem' 
+        assert processings[1]['item'] == 'TINTAS' 
+
+
+
+
 def test_validate_year_product():
     # Test case: year_product is None
     with pytest.raises(HTTPException) as exc_info:
-        validate_year_product(None)
+        validate_year(None)
     assert exc_info.value.status_code == 400
     assert exc_info.value.detail == "Year product must be provided:YYYY"
 
     # Test case: year_product is an empty string
     with pytest.raises(HTTPException) as exc_info:
-        validate_year_product("")
+        validate_year("")
     assert exc_info.value.status_code == 400
     assert exc_info.value.detail == "Year product must be provided:YYYY"
 
     # Test case: year_product is a non-empty string
     year_product = "2023"
-    result = validate_year_product(year_product)
+    result = validate_year(year_product)
     assert result == year_product
 
      # Test case: year_product is not a number
     with pytest.raises(HTTPException) as exc_info:
-        validate_year_product("aaa")
+        validate_year("aaa")
     assert exc_info.value.status_code == 400
     assert exc_info.value.detail == "Year product must be provided:YYYY"
 

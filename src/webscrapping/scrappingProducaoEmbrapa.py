@@ -1,10 +1,9 @@
+import os
 from bs4 import BeautifulSoup
+from config import Config, TestConfig
 from src.webscrapping.fetchWebPage import fetch_page
 from src.webscrapping.parseHTMLContent import parse_html
-from fastapi import FastAPI, HTTPException, Depends
-from typing import Optional
-from config import Config, TestConfig
-import os
+from src.webscrapping.scrappingEmbrapaCommons import get_qtdade_value, get_year_item, normalize_whitespace
 
 
 def scrappingProducaoEmbrapa(year):
@@ -12,106 +11,55 @@ def scrappingProducaoEmbrapa(year):
     html_content = fetch_page(url)
     if html_content:
         soup = parse_html(html_content)
-        produtos = extract_product_item(soup) 
+        produtos = extract_item_tableData(soup) 
         return produtos
     else:
         print("Failed to fetch web page.")
 
 
 
-def extract_product_item(soup):
-    tableProducts = soup.find('table', {'class': 'tb_base tb_dados'}) 
-    
+def extract_item_tableData(soup):
+    tableData = soup.find('table', {'class': 'tb_base tb_dados'})   
     ano = get_year_item(soup)
 
     # Initialize an empty list to store the extracted text
     extracted_text = []
 
-    if tableProducts:
-        for child in tableProducts.find_all('td'):          
-            value = trata_item(child)
-            if check_item_float(value) is not None:
-                product["quantidade"] = value
-                extracted_text.append(product) 
+    if tableData:
+        for child in tableData.find_all('td'):          
+            value = normalize_whitespace(child.text)
+            if get_qtdade_value(value) is not None:
+                dict["quantidade"] = value
+                extracted_text.append(dict) 
             else:
-                product = {}
-                product["product"] = value
-                product["ano"] = ano
+                dict = {}
+                dict["product"] = value
+                dict["ano"] = ano
 
                 # Find the <td> element with class "tb_item"
                 class_name = child.get('class')
-                # Remove the 'tb_' prefix
 
                 if class_name:
+                    # Remove the 'tb_' prefix 
                     class_name = class_name[0].replace('tb_', '')
-                    product["type"] = class_name
+                    # set type as subitem or item
+                    dict["type"] = class_name
+                    # is type==item add it as an attrubute subitem
                     if class_name == 'item':                   
-                        productItem = value
+                        nameItem = value
                     else:
-                        product["item"] = productItem
+                        dict["item"] = nameItem
 
         return extracted_text
     else:
-        print("Failed to extract_product_item.")
-
-
-def get_year_item(html_content):
-
-    #soup = BeautifulSoup(html_content, 'html.parser')
-
-    # Find the <div> element with class 'content_center'
-    div_tag = html_content.find('div', class_='content_center')
-                        
-    # Extract the text content of the <p> tag inside the <div>
-    if div_tag:
-        p_tag = div_tag.find('p', class_='text_center') # type: ignore
-        if p_tag:
-            # Extract the year from the text
-            text = p_tag.get_text()
-            year = text.strip().split('[', 1)[1].split(']', 1)[0]
-            return year
-        else:
-            print("No <p> tag with class 'text_center' found inside <div>")
-            return None
-    else:
-        print("No <div> tag with class 'content_center' found")
-        return None
-
-
-def trata_item(input):
-    value = input.text.replace("-", "0")
-    return " ".join(value.split())
-
-
-def check_item_float(item):
-    value_without_periods = item.replace(".", "")
-    try:
-        return float(value_without_periods)
-    except ValueError:
-        return None  # Return None for non-float items
-
-
-def is_string(value):
-    # Check if the value is a strig and a not number (integer or float).
-    if isinstance(value, (int, float)):
-        return False
-    elif isinstance(value, str) and value.strip().replace('.', '').isdigit():
-        return False
-    return True
-
-
-def validate_year_product(year_product: Optional[str] = None):
-    if year_product is None or year_product.strip() == "" or is_string(year_product):
-        raise HTTPException(status_code=400, detail="Year product must be provided:YYYY")
-    return year_product
-
+        print("Failed to extract_item_tableData.")
 
 
 def get_url(year_product):
     if os.environ.get('ENVIRONMENT') == 'production':
-        url = Config.URL_PRODUCTS + year_product
+        url = Config.BASE_URL_PRODUCTS + "&ano=" + year_product
     else:
-        url = TestConfig.URL_PRODUCTS   
+        url = TestConfig.BASE_URL_PRODUCTS   
     return url
 
 

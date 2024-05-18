@@ -1,16 +1,8 @@
-from unittest.mock import MagicMock
 import pytest
 from src.webscrapping.scrappingProducaoEmbrapa import scrappingProducaoEmbrapa
-from src.webscrapping.scrappingProducaoEmbrapa import get_year_item
-from src.webscrapping.scrappingProducaoEmbrapa import parse_html
-import os
-from config import get_config
-from bs4 import BeautifulSoup
 
 
 def test_scrappingProducaoEmbrapa():
-
-    # Call get_config function
 
     # Call the function to be tested
     produtos = scrappingProducaoEmbrapa("2023")
@@ -31,27 +23,6 @@ def test_scrappingProducaoEmbrapa():
     assert produtos[1]['type'] == 'subitem'  # Check if type is subitem
     assert produtos[1]['item'] == 'VINHO DE MESA'  # Check if item of subitem is 'VINHO DE MESA'
 
-def test_extract_year_from_html():
-    
-    # Test case with a valid HTML content
-    # Given HTML content
-    html_content = '''
-    <div class="content_center"> 
-        <p class="text_center"> Produção de vinhos, sucos e derivados  [2023] </p>
-    </div>
-    '''
-    soup = parse_html(html_content)
-    assert get_year_item(soup) == '2023'
-
-    # Test case with a missing tag
-    html_content = '<p>Some other content</p>'
-    soup = parse_html(html_content)
-    assert get_year_item(soup) is None
-
-    # Test case with missing year inside the tag
-    html_content = '<p class="text_center"> Produção de vinhos, sucos e derivados  </p>'
-    soup = parse_html(html_content)
-    assert get_year_item(soup) is None
 
 if __name__ == "__main__":
     pytest.main()

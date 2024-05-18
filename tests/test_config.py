@@ -27,10 +27,10 @@ def test_get_config_url(mock_environment):
     
 
     if os.environ.get('ENVIRONMENT') == 'production':
-        url = config.URL_PRODUCTS + ano
+        url = config.BASE_URL_PRODUCTS + ano
     else:
-        url = config.URL_PRODUCTS
+        url = config.BASE_URL_PRODUCTS
 
     # Assert URL based on environment
-    assert url == config.URL_PRODUCTS
+    assert url == config.BASE_URL_PRODUCTS
 
