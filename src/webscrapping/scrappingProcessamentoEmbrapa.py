@@ -66,7 +66,7 @@ def extract_item_tableData(soup):
 
 def get_url(year_product,suboption):
     if os.environ.get('ENVIRONMENT') == 'production':
-        url = Config.BASE_URL_PROCESSAMENTO + "&ano=" + year_product + "&suboption=" + suboption
+        url = Config.BASE_URL_PROCESSAMENTO + "&ano=" + year_product + "&subopcao=" + suboption
     else:
         url = TestConfig.BASE_URL_PROCESSAMENTO   
     return url
