@@ -4,6 +4,7 @@ class Config:
     DEBUG = False
     BASE_URL_PRODUCTS = "http://vitibrasil.cnpuv.embrapa.br/index.php?&opcao=opt_02"
     BASE_URL_PROCESSAMENTO = "http://vitibrasil.cnpuv.embrapa.br/index.php?opcao=opt_03"
+    BASE_URL_COMERCIALIZACAO = "http://vitibrasil.cnpuv.embrapa.br/index.php?opcao=opt_04"
 
 
 class TestConfig(Config):
@@ -11,6 +12,7 @@ class TestConfig(Config):
     TESTING = True
     BASE_URL_PRODUCTS = "http://localhost:52330/tests/pages_html_tests/products.html"
     BASE_URL_PROCESSAMENTO = "http://localhost:52330/tests/pages_html_tests/processamento.html"
+    BASE_URL_COMERCIALIZACAO = "http://localhost:52330/tests/pages_html_tests/comercializacao.html"
 
 
 # Dependency to provide the appropriate configuration based on the environment

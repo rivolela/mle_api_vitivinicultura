@@ -1,11 +1,11 @@
 import pytest
-from src.webscrapping.scrappingProducaoEmbrapa import scrappingProducaoEmbrapa
+from src.webscrapping.scrappingProducaoEmbrapa import scrappingProducaoPage
 
 
-def test_scrappingProducaoEmbrapa():
+def test_scrappingProducaoPage():
 
     # Call the function to be tested
-    produtos = scrappingProducaoEmbrapa("2023")
+    produtos = scrappingProducaoPage("2023")
 
     # Assertions
     assert produtos is not None  # Check if produtos is not None

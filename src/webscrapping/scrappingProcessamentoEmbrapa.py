@@ -10,7 +10,7 @@ from src.webscrapping.scrappingProducaoEmbrapa import extract_item_tableData
 import re
 
 
-def scrappingProcessamentoEmbrapa(year,suboption):
+def scrappingProcessamentoPage(year,suboption):
     url = get_url(year,suboption)
     html_content = fetch_page(url)
     if html_content:

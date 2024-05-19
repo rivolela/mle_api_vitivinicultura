@@ -1,5 +1,5 @@
 from bs4 import BeautifulSoup
-from src.webscrapping.scrappingProcessamentoEmbrapa import scrappingProcessamentoEmbrapa
+from src.webscrapping.scrappingProcessamentoEmbrapa import scrappingProcessamentoPage
 from src.webscrapping.scrappingProcessamentoEmbrapa import extract_legend_text
 from src.webscrapping.fetchWebPage import trata_html
 from src.webscrapping.parseHTMLContent import parse_html
@@ -7,7 +7,7 @@ from src.webscrapping.parseHTMLContent import parse_html
 def test_scrappingProcessamentoEmbrapa():
 
     # Call the function to be tested
-    processamentos = scrappingProcessamentoEmbrapa("2022","suboption_01")
+    processamentos = scrappingProcessamentoPage("2022","suboption_01")
 
     # Assertions
     assert processamentos is not None  # Check if produtos is not None
