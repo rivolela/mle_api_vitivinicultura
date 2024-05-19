@@ -6,7 +6,7 @@ from src.webscrapping.parseHTMLContent import parse_html
 from src.webscrapping.scrappingEmbrapaCommons import get_qtdade_value, get_year_item, normalize_whitespace
 
 
-def scrappingProducaoPage(year):
+def scrappingComercializacaoPage(year):
     url = get_url(year)
     html_content = fetch_page(url)
     if html_content:
@@ -57,9 +57,9 @@ def extract_item_tableData(soup):
 
 def get_url(year_product):
     if os.environ.get('ENVIRONMENT') == 'production':
-        url = Config.BASE_URL_PRODUCTS + "&ano=" + year_product
+        url = Config.BASE_URL_COMERCIALIZACAO + "&ano=" + year_product
     else:
-        url = TestConfig.BASE_URL_PRODUCTS   
+        url = TestConfig.BASE_URL_COMERCIALIZACAO   
     return url
 
 
