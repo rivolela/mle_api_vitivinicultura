@@ -137,3 +137,17 @@ async def test_get_importation_with_year():
         assert importations[2]['quantity (Kg)'] == '-'
         assert importations[2]['value (US$)'] == '-'
         assert importations[2]['year'] == '2023'       
+
+        
+
+@pytest.mark.asyncio
+async def test_importations_suboption_null():
+    async with AsyncClient(app=app,base_url="http://127.0.0.1:8000") as ac:
+
+         # Simulate a request with suboption as None
+        year = "2023"
+        response = await ac.get(f"/importations/{year}/None")
+
+        # Validate the response
+        assert response.status_code == 400
+        assert response.json() == {"detail":{"error":{"status_code":400,"detail":"Invalid suboption. Valid options are: \'subopt_01\': \'Vinhos de mesa\', \'subopt_02\': \'Espumantes\', \'subopt_03\': \'Uvas frescas\', \'subopt_04\': \'Uvas passas\', \'subopt_05\': \'Suco de uva\'"}}}
