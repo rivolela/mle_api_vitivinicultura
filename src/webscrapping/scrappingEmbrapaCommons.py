@@ -28,21 +28,8 @@ def validate_year(year: Optional[str] = None):
     if year is None or year.strip() == "" or is_string(year):
         raise HTTPException(status_code=400, detail="Year product must be provided:YYYY")
     return year
-
-
-
-def validate_suboption(suboption: Optional[str] = None):
-    # Define the set of valid suboptions
-    VALID_SUBOPTIONS = {
-        'subopt_01': 'Viníferas',
-        'subopt_02': 'Americanas e híbridas',
-        'subopt_03': 'Uvas de mesa',
-        'subopt_04': 'Sem classificação'
-    }
-    if suboption is None or suboption.strip() == "" or suboption not in VALID_SUBOPTIONS:
-        raise HTTPException(status_code=400, detail="""Invalid suboption. Valid options are:'subopt_01': 'Viníferas','subopt_02': 'Americanas e híbridas','subopt_03': 'Uvas de mesa','subopt_04': 'Sem classificação'""")
-    return suboption
  
+
 
 def get_year_item(html_content):
 

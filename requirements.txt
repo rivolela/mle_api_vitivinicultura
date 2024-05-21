@@ -11,4 +11,3 @@ pytest-twisted
 httpx
 requests
 beautifulsoup4
-tdd

@@ -1,5 +1,6 @@
 
 import os
+from typing import Optional
 
 from fastapi import HTTPException
 from config import Config, TestConfig
@@ -120,3 +121,17 @@ def extract_legend_text(parameter,soup):
     # print(extract_text('1'))  # Output: (1) Tambem conhecida como Santiago e Zeperina.
     # print(extract_text('2'))  # Output: (2) Seibel 2, Dut Chess, Seyve Villard 5276.
     # print(extract_text('*'))  # Output: *: Os dados disponibilizados pelo SISDEVIN no ano de 2022 estão agregados [Uvas viníferas: 99.738.086; Uvas americanas ou híbridas: 565.243.922]
+
+
+
+def validate_suboption_processamento(suboption: Optional[str] = None):
+    # Define the set of valid suboptions
+    VALID_SUBOPTIONS = {
+        'subopt_01': 'Viníferas',
+        'subopt_02': 'Americanas e híbridas',
+        'subopt_03': 'Uvas de mesa',
+        'subopt_04': 'Sem classificação'
+    }
+    if suboption is None or suboption.strip() == "" or suboption not in VALID_SUBOPTIONS:
+        raise HTTPException(status_code=400, detail="""Invalid suboption. Valid options are:'subopt_01': 'Viníferas','subopt_02': 'Americanas e híbridas','subopt_03': 'Uvas de mesa','subopt_04': 'Sem classificação'""")
+    return suboption

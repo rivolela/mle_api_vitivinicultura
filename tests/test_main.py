@@ -104,3 +104,36 @@ async def test_get_comercializacao_with_year():
         assert produtos[1]['ano'] == '2023'  # Check if subitem year is 2023
         assert produtos[1]['type'] == 'subitem'  # Check if type is subitem
         assert produtos[1]['item'] == 'VINHO DE MESA'  # Check if item of subitem is 'VINHO DE MESA'
+
+
+@pytest.mark.asyncio
+async def test_get_importation_with_year():
+    async with AsyncClient(app=app,base_url="http://127.0.0.1:8000") as ac:
+        response = await ac.get("/importations/2023/subopt_01")
+
+        assert response.status_code == 200
+
+        # Parse the JSON data
+        data = response.json()
+
+        # Extract the list of products
+        importations = data.get('importations')  
+        
+        # Assertions
+        assert isinstance(importations, list)  # Check if produtos is a list
+        assert len(importations) > 0  # Check if produtos array is not empty
+
+        # Check the attributes of the first object in the list
+        assert len(importations) > 0  
+        assert importations[0]['country'] == 'Africa do Sul' 
+        assert importations[0]['quantity (Kg)'] == '522.733'
+        assert importations[0]['value (US$)'] == '1.732.850'
+        assert importations[0]['year'] == '2023'   
+        assert importations[1]['country'] == 'Alemanha' 
+        assert importations[1]['quantity (Kg)'] == '102.456'
+        assert importations[1]['value (US$)'] == '557.947'
+        assert importations[1]['year'] == '2023'     
+        assert importations[2]['country'] == 'Argélia' 
+        assert importations[2]['quantity (Kg)'] == '-'
+        assert importations[2]['value (US$)'] == '-'
+        assert importations[2]['year'] == '2023'       
