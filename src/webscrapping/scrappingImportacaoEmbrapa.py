@@ -54,7 +54,7 @@ def process_rows(rows,year):
 
 def get_url(year_product,suboption):
     if os.environ.get('ENVIRONMENT') == 'production':
-        url = Config.BASE_URL_IMPORTACAO + "&ano=" + year_product + "&suboption=" + suboption
+        url = Config.BASE_URL_IMPORTACAO + "&ano=" + year_product + "&subopcao=" + suboption
     else:
         url = TestConfig.BASE_URL_IMPORTACAO   
     return url
