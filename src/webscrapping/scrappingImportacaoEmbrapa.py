@@ -80,4 +80,6 @@ def validate_suboption_importations(suboption: Optional[str] = None):
                 }
             }
         )
+    return suboption
+
 
