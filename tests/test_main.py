@@ -151,3 +151,57 @@ async def test_importations_suboption_null():
         # Validate the response
         assert response.status_code == 400
         assert response.json() == {"detail":{"error":{"status_code":400,"detail":"Invalid suboption. Valid options are: \'subopt_01\': \'Vinhos de mesa\', \'subopt_02\': \'Espumantes\', \'subopt_03\': \'Uvas frescas\', \'subopt_04\': \'Uvas passas\', \'subopt_05\': \'Suco de uva\'"}}}
+
+
+@pytest.mark.asyncio
+async def test_get_exportation_with_year():
+    async with AsyncClient(app=app,base_url="http://127.0.0.1:8000") as ac:
+        response = await ac.get("/exportations/2023/subopt_01")
+
+        assert response.status_code == 200
+
+        # Parse the JSON data
+        data = response.json()
+
+        # Extract the list of products
+        exportations = data.get('exportations')  
+        
+        # Assertions
+        assert isinstance(exportations, list)  # Check if exportations is a list
+        assert len(exportations) > 0  # Check if exportations array is not empty
+
+        # Check the attributes of the first object in the list
+        assert len(exportations) > 0  
+        assert exportations[0]['country'] == 'Afeganistão' 
+        assert exportations[0]['quantity (Kg)'] == '-'
+        assert exportations[0]['value (US$)'] == '-'
+        assert exportations[0]['year'] == '2023'    
+        assert exportations[1]['country'] == 'África do Sul' 
+        assert exportations[1]['quantity (Kg)'] == '117'
+        assert exportations[1]['value (US$)'] == '698'  
+        assert exportations[1]['year'] == '2023' 
+        assert exportations[2]['country'] == 'Alemanha, República Democrática' 
+        assert exportations[2]['quantity (Kg)'] == '4.806'
+        assert exportations[2]['value (US$)'] == '31.853'
+        assert exportations[2]['year'] == '2023'   
+    
+
+
+@pytest.mark.asyncio
+async def test_exportations_suboption_null():
+    async with AsyncClient(app=app, base_url="http://127.0.0.1:8000") as ac:
+        # Simulate a request with suboption as None
+        year = "2023"
+        response = await ac.get(f"/exportations/{year}/None")
+
+        # Validate the response
+        assert response.status_code == 400
+        expected_response = {
+            "detail": {
+                "error": {
+                    "status_code": 400,
+                    "detail": "Invalid suboption. Valid options are: 'subopt_01': 'Vinhos de mesa', 'subopt_02': 'Espumantes', 'subopt_03': 'Uvas frescas', 'subopt_04': 'Suco de uva'"
+                }
+            }
+        }
+        assert response.json() == expected_response
