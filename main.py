@@ -4,7 +4,7 @@ from src.webscrapping.scrappingProcessamentoEmbrapa import scrappingProcessament
 from src.webscrapping.scrappingComercializacaoEmbrapa import scrappingComercializacaoPage
 from src.webscrapping.scrappingImportacaoEmbrapa import scrappingImportationsPage, validate_suboption_importations
 from src.webscrapping.scrappingEmbrapaCommons import  validate_year
-
+from src.webscrapping.scrappingExportacaoEmbrapa import scrappingExportacaoPage,validate_suboption_exportations
 
 app = FastAPI()
 
@@ -52,6 +52,19 @@ async def get_importations(year: str = Depends(validate_year),suboption: str = D
     try:
         list = scrappingImportationsPage(year,suboption)
         return {'importations':list}
+    except HTTPException as e:
+       # Handle specific HTTPException with status code 404
+        if e.status_code == 404:
+            return {"error": "Data not found for the given year and suboption"}
+        # For other HTTPExceptions, return the error detail
+        return {"error": e.detail}
+    
+
+@app.get("/exportations/{year}/{suboption}")
+async def get_exportations(year: str = Depends(validate_year),suboption: str = Depends(validate_suboption_exportations)):
+    try:
+        list = scrappingExportacaoPage(year,suboption)
+        return {'exportations':list}
     except HTTPException as e:
        # Handle specific HTTPException with status code 404
         if e.status_code == 404:

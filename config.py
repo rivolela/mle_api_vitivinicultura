@@ -6,6 +6,7 @@ class Config:
     BASE_URL_PROCESSAMENTO = "http://vitibrasil.cnpuv.embrapa.br/index.php?opcao=opt_03"
     BASE_URL_COMERCIALIZACAO = "http://vitibrasil.cnpuv.embrapa.br/index.php?opcao=opt_04"
     BASE_URL_IMPORTACAO = "http://vitibrasil.cnpuv.embrapa.br/index.php?opcao=opt_05"
+    BASE_URL_EXPORTACAO = "http://vitibrasil.cnpuv.embrapa.br/index.php?opcao=opt_06"
 
 class TestConfig(Config):
     DEBUG = True
@@ -14,6 +15,7 @@ class TestConfig(Config):
     BASE_URL_PROCESSAMENTO = "http://localhost:52330/tests/pages_html_tests/processamento.html"
     BASE_URL_COMERCIALIZACAO = "http://localhost:52330/tests/pages_html_tests/comercializacao.html"
     BASE_URL_IMPORTACAO = "http://localhost:52330/tests/pages_html_tests/importacao.html"
+    BASE_URL_EXPORTACAO = "http://localhost:52330/tests/pages_html_tests/exportacao.html"
 
 
 # Dependency to provide the appropriate configuration based on the environment
