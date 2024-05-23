@@ -13,6 +13,7 @@ This API was developed for the first tech challenge in FIAP's Machine Learning E
 
 - **Endpoints:**
   1. **Rio Grande do Sul's Wine Production, Juices, and Derivatives**
+     - Endpoint: `/products/{year}`
   2. **Rio Grande do Sul's Wine Quantity of Grapes Processed**
      - Endpoint: `/processings/{year}/{suboption}`
      - Valid suboptions:
@@ -25,8 +26,10 @@ This API was developed for the first tech challenge in FIAP's Machine Learning E
        }
        ```
   3. **Rio Grande do Sul's Wine Production and Derivatives Traded**
+    - Endpoint: `/trades/{year}`
   4. **Rio Grande do Sul's Importation of Grape Derivatives**
-     - Valid suboptions:
+    - Endpoint: `/importations/{year}/{suboption}`
+    - Valid suboptions:
        ```python
        VALID_SUBOPTIONS = {
            'subopt_01': 'Vinhos de mesa',
@@ -37,7 +40,8 @@ This API was developed for the first tech challenge in FIAP's Machine Learning E
        }
        ```
   5. **Rio Grande do Sul's Exportation of Grape Derivatives**
-     - Valid suboptions:
+    - Endpoint: `/exportations/{year}/{suboption}`
+    - Valid suboptions:
        ```python
        VALID_SUBOPTIONS = {
            'subopt_01': 'Vinhos de mesa',
