@@ -55,8 +55,10 @@ This API was developed for the first tech challenge in FIAP's Machine Learning E
 ```bash
 cd /path/to/your/project
 pip install -r requirements.txt
+```
 
 ## Test
 ```bash
 cd /path/to/your/project
 pytest
+```
