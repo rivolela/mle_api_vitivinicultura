@@ -13,7 +13,7 @@ This API was developed for the first tech challenge in FIAP's Machine Learning E
 +-------------------+                 +----------------------------+             +--------------------+
 |                   |  HTTP/HTTPS     |                            | Internal    |                    |
 | Client API        | <-------------> |  API Rest: Vitivinicultura | Network     |  Database (TBD)    |
-| Requests          |                 |  Embrapa                   | <---------> |       (BD)         |
+| Requests          |                 |  Embrapa                   | <---------> |    (IasS: AWS)     |
 |                   |                 |  (Web Server: Render)      |             |                    |
 +-------------------+                 +----------------------------+             +--------------------+
                                              ^   |                                       |
@@ -22,8 +22,8 @@ This API was developed for the first tech challenge in FIAP's Machine Learning E
                                              |   v                                       v
                                      +----------------------------+             +-------------------+
                                      |                            |             |                   |
-                                     |   Web Scraping:            |             |       ML          |
-                                     |   Vitivinicultura Embrapa  |             |                   |
+                                     |   Web Scraping:            |             |      ML (TBD)     |
+                                     |   Vitivinicultura Embrapa  |             |   (IasS:  AWS     |
                                      |   (Web Server: Render)     |             |                   |
                                      +----------------------------+             +-------------------+
                                              ^
