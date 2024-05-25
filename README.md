@@ -39,8 +39,6 @@ This API was developed for the first tech challenge in FIAP's Machine Learning E
                                      +-------------------+
 ```
 
-## Test
-
 ## Endpoints
 - API documentation and endpoints: [API Documentation](https://mle-api-vitivinicultura.onrender.com/docs)
   - This API was delivered on a Free Web Service in the Render Platform. As it is free, the instance will spin down with inactivity, which can delay requests by 50 seconds or more.
