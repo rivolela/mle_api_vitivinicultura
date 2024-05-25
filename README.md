@@ -16,13 +16,13 @@ This API was developed for the first tech challenge in FIAP's Machine Learning E
 | Requests          |                 |  Embrapa                   | <---------> |       (BD)         |
 |                   |                 |  (Web Server: Render)      |             |                    |
 +-------------------+                 +----------------------------+             +--------------------+
-                                             ^   |                   |                  |
-                                             |   | Internal Network |                  |
-                                 HTTP/HTTPS  |   |                  |                  |
-                                             |   v                  v                  v
+                                             ^   |                                       |
+                                             |   | Internal Network                      | Internal
+                                 HTTP/HTTPS  |   |                                       | Network
+                                             |   v                                       v
                                      +----------------------------+             +-------------------+
-                                     |                            | Internal    |                   |
-                                     |   Web Scraping:            | Network     |       ML          |
+                                     |                            |             |                   |
+                                     |   Web Scraping:            |             |       ML          |
                                      |   Vitivinicultura Embrapa  |             |                   |
                                      |   (Web Server: Render)     |             |                   |
                                      +----------------------------+             +-------------------+
