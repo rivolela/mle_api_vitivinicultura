@@ -23,7 +23,7 @@ This API was developed for the first tech challenge in FIAP's Machine Learning E
                                      +----------------------------+             +-------------------+
                                      |                            |             |                   |
                                      |   Web Scraping:            |             |      ML (TBD)     |
-                                     |   Vitivinicultura Embrapa  |             |   (IasS:  AWS     |
+                                     |   Vitivinicultura Embrapa  |             |   (IasS:  AWS)    |
                                      |   (Web Server: Render)     |             |                   |
                                      +----------------------------+             +-------------------+
                                              ^
