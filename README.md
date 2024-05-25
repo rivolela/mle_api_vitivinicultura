@@ -9,7 +9,36 @@ This API was developed for the first tech challenge in FIAP's Machine Learning E
 
 
 ## Deploy Diagram
+``plaintext
++-------------------+                 +----------------------------+             +--------------------+
+|                   |  HTTP/HTTPS     |                            | Internal    |                    |
+| Client API        | <-------------> |  API Rest: Vitivinicultura | Network     |  Database (TBD)    |
+| Requests          |                 |  Embrapa                   | <---------> |   (IasS: AWS)      |
+|                   |                 |  (Web Server: Render)      |             |                    |
++-------------------+                 +----------------------------+             +--------------------+
+                                             ^   |                                      |
+                                             |   | Internal Network                     |
+                                 HTTP/HTTPS  |   |                                      | Internal
+                                             |   v                                      v Network
+                                     +----------------------------+             +-------------------+
+                                     |                            |             |                   |
+                                     |   Web Scraping:            |             |      ML (TBD)     |
+                                     |   Vitivinicultura Embrapa  |             |    (IasS: AWS)    |
+                                     |   (Web Server: Render)     |             |                   |
+                                     +----------------------------+             +-------------------+
+                                             ^
+                                             |
+                                Internal Network
+                                             |
+                                             v
+                                     +-------------------+
+                                     |                   |
+                                     |      Website      |
+                                     | (Vitivinicultura  |
+                                     |     Embrapa)      |
+                                     +-------------------+
 
+```
 ## Test
 
 ## Endpoints
