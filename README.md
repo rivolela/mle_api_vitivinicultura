@@ -9,35 +9,8 @@ This API was developed for the first tech challenge in FIAP's Machine Learning E
 
 
 ## Deploy Diagram
-```
-+-------------------+                 +----------------------------+             +--------------------+
-|                   |  HTTP/HTTPS     |                            | Internal    |                    |
-| Client API        | <-------------> |  API Rest: Vitivinicultura | Network     |  Database (TBD)    |
-| Requests          |                 |  Embrapa                   | <---------> |    (IasS: AWS)     |
-|                   |                 |  (Web Server: Render)      |             |                    |
-+-------------------+                 +----------------------------+             +--------------------+
-                                             ^   |                                       |
-                                             |   | Internal Network                      | Internal
-                                 HTTP/HTTPS  |   |                                       | Network
-                                             |   v                                       v
-                                     +----------------------------+             +-------------------+
-                                     |                            |             |                   |
-                                     |   Web Scrapping:           |             |      ML (TBD)     |
-                                     |   Vitivinicultura Embrapa  |             |   (IasS:  AWS)    |
-                                     |   (Web Server: Render)     |             |                   |
-                                     +----------------------------+             +-------------------+
-                                             ^
-                                             |
-                                Internal Network
-                                             |
-                                             v
-                                     +-------------------+
-                                     |                   |
-                                     |      Website      |
-                                     | (Vitivinicultura  |
-                                     |     Embrapa)      |
-                                     +-------------------+
-```
+![diagram](https://github.com/rivolela/mle_api_vitivinicultura/assets/1680420/35bc6809-e06b-46cd-95a4-ba37e7651d3f)
+
 
 ## Vitinicultura API
 
