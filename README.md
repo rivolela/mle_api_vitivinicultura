@@ -12,7 +12,7 @@ This API was developed for the first tech challenge in FIAP's Machine Learning E
 ![diagram](https://github.com/rivolela/mle_api_vitivinicultura/assets/1680420/35bc6809-e06b-46cd-95a4-ba37e7651d3f)
 
 
-## Vitinicultura API
+## Test
 
 - [API documentation and endpoints](https://mle-api-vitivinicultura.onrender.com/docs)
 - This API was delivered on a Free Web Service in the Render Platform. As it is free, the instance will spin down with inactivity, which can delay requests by 50 seconds or more.
